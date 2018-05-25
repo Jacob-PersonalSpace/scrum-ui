@@ -1,0 +1,45 @@
+.task {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    .item-group {
+        min-height: 100%;
+        .item {
+            height: 50px;
+            border: 1px solid #dddee1;
+            .colorFlag {
+                width: 10px;
+                height: 100%;
+                float: left;
+            }
+            .taskId {
+                line-height: 50px;
+                font-size: 20px;
+                margin-left: 3px;
+            }
+            .taskName {
+                line-height: 50px;
+                font-size: 12px;
+                margin-left: 5px;
+                position: absolute;
+            }
+            .owner {
+                float: right;
+                line-height: 50px;
+                margin-right: 10px;
+                margin-top: 13px;
+            }
+            .ivu-icon-close {
+                cursor: pointer;
+                float: right;
+                margin-right: 10px;
+                transform: translateY(-50%);
+                top: 50%;
+                position: relative;
+                &:hover {
+                    color: red;
+                }
+            }
+        }
+    }
+}
