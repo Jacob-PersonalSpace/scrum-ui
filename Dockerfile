@@ -1,5 +1,5 @@
 # step 1. 从docker获取node镜像
-FROM node:alpine as webpackNode
+FROM node:alpine as webpacknode
 
 # step 3. 新增目录
 RUN mkdir -p /usr/src/app
@@ -23,7 +23,7 @@ FROM nginx:stable
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # step 11. 把上面项目打包的dist里面的静态文件复制到nginx里面的/usr/share/nginx/htm
-COPY --from=webpackNode usr/src/app/dist /usr/share/nginx/html
+COPY --from=webpacknode usr/src/app/dist /usr/share/nginx/html
 
 # step 12
 EXPOSE 8080
