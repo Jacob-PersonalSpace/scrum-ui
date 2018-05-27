@@ -185,6 +185,7 @@ export default {
                             taskId: this.movingObject.id,
                             userId: Cookies.getJSON("user").id,
                             status: 4,
+                            ownerId: Cookies.getJSON("user").id,
                             timeSpend: this.formResolve.timeSpend
                         })
                             .then(result => {
