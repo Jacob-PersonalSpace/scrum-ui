@@ -1,7 +1,7 @@
 <template>
     <Form ref="loginForm" :model="form" :rules="rules" class="login">
         <strong style="font-size: 50px;">SCRUM</strong>
-        <span>v0.1 Beta</span>
+        <span>0.11 Beta</span>
         <br>
         <br>
         <FormItem prop="userName">
