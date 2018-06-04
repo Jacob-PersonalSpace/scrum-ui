@@ -5,4 +5,7 @@ export const SCRUM_SERVER = {
     createTask: 'createTask',
     getTaskList: 'getTaskList',
     updateTask: 'updateTask',
+    getCommentList: 'getCommentList',
+    deleteComment: 'deleteComment',
+    addComment: 'addComment',
 }

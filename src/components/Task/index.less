@@ -7,6 +7,7 @@
         .item {
             height: 50px;
             border: 1px solid #dddee1;
+            cursor: move;
             .colorFlag {
                 width: 10px;
                 height: 100%;
@@ -16,6 +17,12 @@
                 line-height: 50px;
                 font-size: 20px;
                 margin-left: 3px;
+                text-decoration: underline;
+                font-style: oblique;
+                &:hover {
+                    cursor: pointer;
+                    color: red;
+                }
             }
             .taskName {
                 line-height: 50px;

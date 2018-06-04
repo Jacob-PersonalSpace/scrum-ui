@@ -1,11 +1,11 @@
 <template>
     <Form ref="loginForm" :model="form" :rules="rules" class="login">
         <strong style="font-size: 50px;">SCRUM</strong>
-        <span>0.11 Beta</span>
+        <span>V 0.2</span>
         <br>
         <br>
         <FormItem prop="userName">
-            <Input v-model="form.userName" placeholder="请输入用户名">
+            <Input v-model="form.userName" placeholder="请输入用户名" :autofocus="true" @on-keyup.enter="login">
                 <span slot="prepend">
                     <Icon :size="16" type="person"></Icon>
                 </span>

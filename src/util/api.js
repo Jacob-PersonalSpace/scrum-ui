@@ -117,3 +117,71 @@ export const updateTaskApi = ({ userId, taskId, status, ownerId, timeSpend }) =>
         options,
     }).then(result => result)
 }
+
+export const deleteCommentApi = ({ userId, id }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.deleteComment,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+        options = {
+            credentials: 'same-origin',
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({ userId, id })
+        }
+
+    console.log(`deleteCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
+
+    return getDataFromBackend({
+        url,
+        options,
+    }).then(result => result)
+}
+
+export const getCommentListApi = ({ taskId }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.getCommentList,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+        options = {
+            credentials: 'same-origin',
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            params: {
+                taskId,
+            },
+        }
+
+    console.log(`getCommentListApi url: ${url}, options: ${JSON.stringify(options)}`)
+
+    return getDataFromBackend({
+        url,
+        options,
+    }).then(result => result)
+}
+
+export const addCommentApi = ({ taskId, comment, userId }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.addComment,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+        options = {
+            credentials: 'same-origin',
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({ taskId, comment, userId })
+        }
+
+    console.log(`addCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
+
+    return getDataFromBackend({
+        url,
+        options,
+    }).then(result => result)
+}

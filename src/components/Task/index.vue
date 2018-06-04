@@ -8,7 +8,7 @@
                 <span style="font-size: 15px;">Task Pool</span>
                 <draggable v-model="taskList" :options="{group: 'task'}" class="item-group" :move="beforeMove" @end="afterMove" id="1">
                     <div v-for="element in taskList" :key="element.id" class="item">
-                        <span class="taskId">{{element.taskTag}}</span>
+                        <span class="taskId" @click="openTaskModel({ taskId: element.id, taskDescription: element.taskDescription })">{{element.taskTag}}</span>
                         <span class="taskName">{{element.taskName}}</span>
                         <Icon type="close" @click="deleteTask(element.id)"></Icon>
                     </div>
@@ -82,6 +82,36 @@
                 <Button @click="updateTask()" type="success">确定</Button>
             </div>
         </Modal>
+        <Modal
+            v-model="taskDetailModal"
+            width="50"
+            title="Task Description"
+        >
+            <Form :model="taskDetail" label-position="top">
+                <FormItem label="Description">
+                    <span>{{taskDetail.taskDescription}}</span>
+                </FormItem>
+                <FormItem label="Comment">
+                    <ul style="height: 300px; overflow-y: auto;">
+                        <li v-for="comment in taskDetail.commentList" v-bind:key="comment.id">
+                            <span>[{{comment.createdAt}}]</span>
+                            <span>[{{comment.user.userName}}]</span>
+                            <span>{{comment.comment}}</span>
+                        </li>
+                    </ul>
+                </FormItem>
+            </Form>
+            <div slot="footer">
+                <Form :model="taskDetail" label-position="top">
+                    <FormItem>
+                        <Input v-model="taskDetail.comment" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Comment..."></Input>
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" @click="onAddComment">Add Comment</Button>
+                    </FormItem>
+                </Form>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -91,7 +121,14 @@ import draggable from "vuedraggable";
 import Cookies from "js-cookie";
 import _ from "lodash";
 
-import { createTaskApi, getTaskListApi, updateTaskApi } from "../../util/api";
+import {
+    createTaskApi,
+    getTaskListApi,
+    updateTaskApi,
+    getCommentListApi,
+    deleteCommentApi,
+    addCommentApi
+} from "../../util/api";
 
 export default {
     props: ["users"],
@@ -123,6 +160,13 @@ export default {
     },
     data() {
         return {
+            taskDetail: {
+                taskId: 0,
+                comment: "",
+                taskDescription: "",
+                commentList: []
+            },
+            taskDetailModal: false,
             formTop: {
                 taskTag: "",
                 taskName: "",
@@ -174,6 +218,52 @@ export default {
         };
     },
     methods: {
+        openTaskModel({ taskId, taskDescription }) {
+            this.taskDetailModal = true;
+
+            try {
+                getCommentListApi({ taskId })
+                    .then(commentList => {
+                        this.taskDetail.taskId = taskId;
+                        this.taskDetail.taskDescription = taskDescription;
+                        this.taskDetail.commentList = commentList;
+                    })
+                    .catch(error => {
+                        this.taskDetailModal = false;
+
+                        swal("", `Get comment failed: ${error}`, "error");
+                    });
+            } catch (error) {
+                this.taskDetailModal = false;
+
+                swal("", `Get comment failed: ${error}`, "error");
+            }
+        },
+        onAddComment() {
+            try {
+                if (this.taskDetail.comment) {
+                    addCommentApi({
+                        userId: Cookies.getJSON("user").id,
+                        taskId: this.taskDetail.taskId,
+                        comment: this.taskDetail.comment
+                    })
+                        .then(() =>
+                            getCommentListApi({
+                                taskId: this.taskDetail.taskId
+                            })
+                        )
+                        .then(commentList => {
+                            this.taskDetail.comment = "";
+                            this.taskDetail.commentList = commentList;
+                        })
+                        .catch(error => {
+                            swal("", `Add comment failed: ${error}`, "error");
+                        });
+                }
+            } catch (error) {
+                swal("", `Add comment failed: ${error}`, "error");
+            }
+        },
         updateTask() {
             try {
                 this.$refs.resolveForm.validate().then(valid => {

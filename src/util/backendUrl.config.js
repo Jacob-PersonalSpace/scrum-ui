@@ -13,5 +13,8 @@ export const BACKEND_URL_PATH = {
         [SCRUM_SERVER.createTask]: { url: 'api/task/createTask', isAuth: false },
         [SCRUM_SERVER.getTaskList]: { url: 'api/task/getTaskList', isAuth: false },
         [SCRUM_SERVER.updateTask]: { url: 'api/task/updateTask', isAuth: false },
+        [SCRUM_SERVER.getCommentList]: { url: 'api/comment/getCommentList', isAuth: false },
+        [SCRUM_SERVER.deleteComment]: { url: 'api/comment/deleteComment', isAuth: false },
+        [SCRUM_SERVER.addComment]: { url: 'api/comment/addComment', isAuth: false },
     }
 }
