@@ -19,7 +19,7 @@
                 <draggable v-model="todoList" :options="{group: 'task'}" class="item-group" :move="beforeMove" @end="afterMove" id="2">
                     <div v-for="element in todoList" :key="element.id" class="item">
                         <span class="colorFlag" :style="{ backgroundColor: element.color }"></span>
-                        <span class="taskId">{{element.taskTag}}</span>
+                        <span class="taskId" @click="openTaskModel({ taskId: element.id, taskDescription: element.taskDescription })">{{element.taskTag}}</span>
                         <span class="taskName">{{element.taskName}}</span>
                         <span class="owner">{{element.ownerName}}</span>
                     </div>
@@ -30,7 +30,7 @@
                 <draggable v-model="doingList" :options="{group: 'task'}" class="item-group" :move="beforeMove" @end="afterMove" id="3">
                     <div v-for="element in doingList" :key="element.id" class="item">
                         <span class="colorFlag" :style="{ backgroundColor: element.color }"></span>
-                        <span class="taskId">{{element.taskTag}}</span>
+                        <span class="taskId" @click="openTaskModel({ taskId: element.id, taskDescription: element.taskDescription })">{{element.taskTag}}</span>
                         <span class="taskName">{{element.taskName}}</span>
                         <span class="owner">{{element.ownerName}}</span>
                     </div>
@@ -41,7 +41,7 @@
                 <draggable v-model="doneList" :options="{group: 'task'}" class="item-group" :move="beforeMove" @end="afterMove" id="4">
                     <div v-for="element in doneList" :key="element.id" class="item" style="backgroundColor: #d8d8d8;">
                         <span class="colorFlag" :style="{ backgroundColor: element.color }"></span>
-                        <span class="taskId">{{element.taskTag}}</span>
+                        <span class="taskId" @click="openTaskModel({ taskId: element.id, taskDescription: element.taskDescription })">{{element.taskTag}}</span>
                         <span class="taskName">{{element.taskName}}</span>
                         <span style="position: absolute; right: 10px;">TS:{{element.timeSpend}}h</span>
                         <span class="owner">{{element.ownerName}}</span>

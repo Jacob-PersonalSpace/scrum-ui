@@ -2,7 +2,7 @@ import { SCRUM_SERVER } from './constant'
 
 export const BACKEND_URL_HOST = {
     default: 'http://localhost:3000',
-    development: 'http://localhost:3000',
+    development: 'http://47.75.147.191:12800',
     production: process.env.PRODUCTION_BACKEND_HOST || 'http://47.75.147.191:12800'
 }
 
