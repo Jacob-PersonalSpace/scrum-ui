@@ -1,7 +1,7 @@
 <template>
     <Form ref="loginForm" :model="form" :rules="rules" class="login">
         <strong style="font-size: 50px;">SCRUM</strong>
-        <span>V 0.2</span>
+        <span>{{version}}</span>
         <br>
         <br>
         <FormItem prop="userName">
@@ -19,12 +19,15 @@
 
 <script>
 import swal from "sweetalert2";
-import { loginApi } from "../../util/api";
 import Cookies from "js-cookie";
+
+import { version } from "../../../version";
+import { loginApi } from "../../util/api";
 
 export default {
     data() {
         return {
+            version: version,
             form: {
                 userName: ""
             },
