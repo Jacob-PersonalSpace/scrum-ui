@@ -6,11 +6,10 @@ const backendUrlHost = getBackendUrlHost()
 
 console.log(`backendUrlHost: ${backendUrlHost}`);
 
-export const loginApi = ({ userName }) => {
-    const projectKey = SCRUM_SERVER.projectName
-    const apiKey = SCRUM_SERVER.login
-
-    const url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+export const loginApi = async ({ userName }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.login,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
         options = {
             credentials: 'same-origin',
             method: 'post',
@@ -21,19 +20,15 @@ export const loginApi = ({ userName }) => {
             data: JSON.stringify({ userName })
         }
 
-    console.log(`loginApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`loginApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const getUserListApi = () => {
-    const projectKey = SCRUM_SERVER.projectName
-    const apiKey = SCRUM_SERVER.getUserList
-
-    const url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+export const getUserListApi = async () => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.getUserList,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
         options = {
             credentials: 'same-origin',
             method: 'get',
@@ -43,19 +38,15 @@ export const getUserListApi = () => {
             },
         }
 
-    console.log(`getUserListApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`getUserListApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const createTaskApi = ({ taskTag, userId, taskName, taskDescription }) => {
-    const projectKey = SCRUM_SERVER.projectName
-    const apiKey = SCRUM_SERVER.createTask
-
-    const url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+export const createTaskApi = async ({ taskTag, userId, taskName, taskDescription }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.createTask,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
         options = {
             credentials: 'same-origin',
             method: 'post',
@@ -66,15 +57,12 @@ export const createTaskApi = ({ taskTag, userId, taskName, taskDescription }) =>
             data: JSON.stringify({ taskTag, userId, taskName, taskDescription })
         }
 
-    console.log(`createTaskApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`createTaskApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const getTaskListApi = () => {
+export const getTaskListApi = async () => {
     const projectKey = SCRUM_SERVER.projectName,
         apiKey = SCRUM_SERVER.getTaskList,
         url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
@@ -87,19 +75,15 @@ export const getTaskListApi = () => {
             },
         }
 
-    console.log(`getTaskListApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`getTaskListApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const updateTaskApi = ({ userId, taskId, status, ownerId, timeSpend }) => {
-    const projectKey = SCRUM_SERVER.projectName
-    const apiKey = SCRUM_SERVER.updateTask
-
-    const url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
+export const updateTaskApi = async ({ userId, taskId, status, ownerId, timeSpend }) => {
+    const projectKey = SCRUM_SERVER.projectName,
+        apiKey = SCRUM_SERVER.updateTask,
+        url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
         options = {
             credentials: 'same-origin',
             method: 'post',
@@ -110,15 +94,12 @@ export const updateTaskApi = ({ userId, taskId, status, ownerId, timeSpend }) =>
             data: JSON.stringify({ userId, id: taskId, status, owner: ownerId, timeSpend })
         }
 
-    console.log(`updateTaskApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`updateTaskApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const deleteCommentApi = ({ userId, id }) => {
+export const deleteCommentApi = async ({ userId, id }) => {
     const projectKey = SCRUM_SERVER.projectName,
         apiKey = SCRUM_SERVER.deleteComment,
         url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
@@ -132,15 +113,12 @@ export const deleteCommentApi = ({ userId, id }) => {
             data: JSON.stringify({ userId, id })
         }
 
-    console.log(`deleteCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`deleteCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const getCommentListApi = ({ taskId }) => {
+export const getCommentListApi = async ({ taskId }) => {
     const projectKey = SCRUM_SERVER.projectName,
         apiKey = SCRUM_SERVER.getCommentList,
         url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
@@ -156,15 +134,12 @@ export const getCommentListApi = ({ taskId }) => {
             },
         }
 
-    console.log(`getCommentListApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`getCommentListApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }
 
-export const addCommentApi = ({ taskId, comment, userId }) => {
+export const addCommentApi = async ({ taskId, comment, userId }) => {
     const projectKey = SCRUM_SERVER.projectName,
         apiKey = SCRUM_SERVER.addComment,
         url = backendUrlHost + '/' + BACKEND_URL_PATH[projectKey][apiKey].url,
@@ -178,10 +153,7 @@ export const addCommentApi = ({ taskId, comment, userId }) => {
             data: JSON.stringify({ taskId, comment, userId })
         }
 
-    console.log(`addCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
+    console.debug(`addCommentApi url: ${url}, options: ${JSON.stringify(options)}`)
 
-    return getDataFromBackend({
-        url,
-        options,
-    }).then(result => result)
+    return await getDataFromBackend({ url, options })
 }

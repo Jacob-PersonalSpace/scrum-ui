@@ -41,27 +41,39 @@ export default {
     },
     methods: {
         login() {
-            this.$refs.loginForm.validate(valid => {
+            this.$refs.loginForm.validate(async valid => {
                 if (valid) {
-                    this.$Spin.show();
+                    try {
+                        this.$Spin.show();
 
-                    loginApi({ userName: this.form.userName })
-                        .then(data => {
-                            this.$Spin.hide();
-
-                            if (data) {
-                                Cookies.set("user", data);
-
-                                this.$router.push({
-                                    name: "home"
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            this.$Spin.hide();
-
-                            swal({ text: `${error}`, type: "error" });
+                        const user = await loginApi({
+                            userName: this.form.userName
                         });
+
+                        this.$Spin.hide();
+
+                        if (user) {
+                            Cookies.set("user", user);
+
+                            this.$router.push({
+                                path: "home/task"
+                            });
+                        } else {
+                            swal({
+                                title: "Error",
+                                text: `The user does not exist.`,
+                                type: "error"
+                            });
+                        }
+                    } catch (error) {
+                        this.$Spin.hide();
+
+                        swal({
+                            title: "Error",
+                            text: `Login failed: ${error.message || error}`,
+                            type: "error"
+                        });
+                    }
                 }
             });
         }
